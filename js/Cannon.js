@@ -23,8 +23,3 @@ class Cannon {
         image(this.baseImg, 70,20,200,200);
     }
 }
-
-
-git remote add origin https://github.com/BYJU-s-Future-School-Prof-Paula/Invasao_Pirata.git
-git branch -M pt1-canhao
-git push -u origin pt1-canhao
