@@ -13,10 +13,19 @@ class Cannon {
 
     // funcao para desenhar/exibir um canhao
     mostrar(){
+        // Variações de angulo
+        if(keyIsDown(RIGHT_ARROW) && this.angulo < 70){
+            this.angulo += 2;
+        } else if(keyIsDown(LEFT_ARROW) && this.angulo > -30){
+            this.angulo -= 1;
+        }
+
         // Topo do canhao (tubo)
         push();
+        translate(this.x,this.y);                   // modifica os valores do eixo
+        rotate(this.angulo);                        // fala o tanto que irá rotacionar
         imageMode(CENTER);
-        image(this.tuboImg,this.x, this.y, this.largura, this.altura);
+        image(this.tuboImg,0, 0, this.largura, this.altura);
         pop();
 
         // base do canhao
