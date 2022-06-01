@@ -14,6 +14,7 @@ var chao;       // corpo do chao (final da tela, para que os corpos nao caiam)
 var torre;      // o corpo da torre
 var canhao;     // a figura do canhao
 var angulo;     // o angulo do canhao
+var bola;
 
 // variaveis de imagens
 var backgroundImg;
@@ -34,6 +35,9 @@ function preload() {
 function setup() {
     canvas = createCanvas(1200,600);        // tela(canvas)
 
+    // modificações necessarias de modo
+    angleMode(DEGREES);
+
     // definições básicas da biblioteca
     motor = Engine.create();                // cria um motor da física
     mundo = motor.world;                    // cria um mundo que segue as leis do motor
@@ -52,10 +56,12 @@ function setup() {
     World.add(mundo, torre);                                        // add a torre no nosso mundo
 
     // angulo do canhao
-    angulo = 20;
+    angulo = 15;
 
     // criacao do canhao
     canhao = new Cannon(180,110,130,100,angulo);
+
+    bola = new CannonBall(canhao.x, canhao.y);
 
 }
 
@@ -72,5 +78,13 @@ function draw(){
     pop();
 
     canhao.mostrar();
+    bola.mostrar();
     
+}
+
+// funcao para identificar quando solta uma tecla
+function keyReleased() {
+    if(keyCode === DOWN_ARROW){
+        bola.atirar();   
+    }
 }
