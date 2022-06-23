@@ -7,21 +7,22 @@ const Body = Matter.Body;
 
 /** Criar as variaveis **/
 
-var motor;      // o motor da física
-var mundo;      // o mundo que iremos trabalhar
+let motor;      // o motor da física
+let mundo;      // o mundo que iremos trabalhar
 
-var chao;       // corpo do chao (final da tela, para que os corpos nao caiam)
-var torre;      // o corpo da torre
-var canhao;     // a figura do canhao
-var angulo;     // o angulo do canhao
+let chao;       // corpo do chao (final da tela, para que os corpos nao caiam)
+let torre;      // o corpo da torre
+let canhao;     // a figura do canhao
+let angulo;     // o angulo do canhao
 // var bola;
 
-var bolas = []; // array para armazenar as bolas de canhao
+let bolas = []; // array para armazenar as bolas de canhao
+let barcos = []; // array para armazenar os barcos
 
 
 // variaveis de imagens
-var backgroundImg;
-var torreImg;
+let backgroundImg;
+let torreImg;
 
 
 /** Criar as funções **/
@@ -46,7 +47,7 @@ function setup() {
     mundo = motor.world;                    // cria um mundo que segue as leis do motor
 
     // definição de opcoes para corpos estaticos
-    var opcoes = {
+    let opcoes = {
         isStatic: true
     };
 
@@ -81,6 +82,7 @@ function draw(){
     }
 
     canhao.mostrar();                               // desenha o canhao
+    verBarcos();                                    // desenha os barcos
     
     push();
     imageMode(CENTER);                                              // faz a posicao passada ser a do centro da imagem
@@ -99,7 +101,7 @@ function keyReleased(){
 // funcao para identificar quando aperta uma tecla
 function keyPressed(){
     if(keyCode === DOWN_ARROW) {
-        var bola = new CannonBall(canhao.x, canhao.y+4);      // cria a bola de canhao
+        let bola = new CannonBall(canhao.x, canhao.y+4);      // cria a bola de canhao
         bolas.push(bola);                                   // add a bola de canhao no vetor de bolas
         //console.log(bolas);
     }
@@ -108,4 +110,35 @@ function keyPressed(){
 // funcao para desenhar as bolas de canhao
 function verBolas(i){
     bolas[i].mostrar();
+}
+
+function verBarcos(){
+    if(barcos.length > 0){
+        // se tem algo no vetor
+
+        // criar outro barco
+        if(barcos[barcos.length-1] === undefined ||
+           barcos[barcos.length-1].corpo.position.x < width - 300){
+            let posicoes = [-40, -60, -70, -20];                        // cria um vetor de possiveis deslocamentos
+            let posicao = random(posicoes);                             // escolhe aleatoriamente um valor possivel
+
+            let barco = new Boat(width+75, height-60, 170,170,posicao);
+            barcos.push(barco);                         // add barco no vetor de barcos
+            
+        }
+
+
+        // dar velocidade e desenhar os barcos
+        for(let i=0; i<barcos.length; i++){
+            // dar a velocidade
+            Body.setVelocity(barcos[i].corpo, {x: -0.9, y: 0});
+            // desenhar
+            barcos[i].mostrar();
+        }
+    
+    } else {
+        // se o vetor está vazio
+        let barco = new Boat(width + 75, height - 60, 170, 170, -60); // cria o barco
+        barcos.push(barco);             // add a barco de canhao no vetor de barcos
+    }
 }
