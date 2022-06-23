@@ -11,17 +11,31 @@ class CannonBall{
 
         //adiciona o corpo no mundo
         World.add(mundo, this.corpo);
+
+        // array para fazer a trajetória
+        this.trajetoria = [];
     }
 
     mostrar(){
         // namespace da posição
         const pos = this.corpo.position;
-    
+
+        // obtendo as posicoes x e y para colocar na matriz de trajetória
+        if (this.corpo.velocity.x > 0 && pos.x > canhao.x) {
+            let posicao = [pos.x, pos.y];
+            this.trajetoria.push(posicao);
+        }
+
+        // desenhar toda a trajetoria
+        for (let i = 0; i < this.trajetoria.length; i++) {
+            image(this.imagem, this.trajetoria[i][0], this.trajetoria[i][1], 5,5);
+        }
+
         // encapsulamento de modificações e exibição
         push();
         imageMode(CENTER);
         image(this.imagem, pos.x, pos.y, this.raio, this.raio);
-        //console.log("a");
+        
         pop();
 
     }

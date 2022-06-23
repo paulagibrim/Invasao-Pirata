@@ -80,7 +80,7 @@ function draw(){
         verBolas(i);
     }
 
-    canhao.mostrar();
+    canhao.mostrar();                               // desenha o canhao
     
     push();
     imageMode(CENTER);                                              // faz a posicao passada ser a do centro da imagem
