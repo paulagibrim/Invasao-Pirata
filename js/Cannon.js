@@ -29,6 +29,6 @@ class Cannon {
         pop();
 
         // base do canhao
-        image(this.baseImg, 70,20,200,200);
+        image(this.baseImg, 70,30,200,200);
     }
 }

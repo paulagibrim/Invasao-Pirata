@@ -21,17 +21,18 @@ class CannonBall{
         push();
         imageMode(CENTER);
         image(this.imagem, pos.x, pos.y, this.raio, this.raio);
+        //console.log("a");
         pop();
 
     }
 
     atirar(){
         // para seguir o angulo do motor
-        var novoAngulo = canhao.angulo - 28;                // para considerar o tamanho do canhao
+        var novoAngulo = canhao.angulo - 30;                // para considerar o tamanho do canhao
         novoAngulo = novoAngulo * (3.14/180);               // transforma para graus
         
-        var velocidade = p5.Vector.fromAngle(novoAngulo);   // ??
-        velocidade.mult(0.5);                               // ??
+        var velocidade = p5.Vector.fromAngle(novoAngulo);   // pega a velocidade dividida em x e y para aquele angulo
+        velocidade.mult(0.5);                               // multiplica todos os elementos por 0.5 para ficar uma velocidade viável
 
         Body.setStatic(this.corpo, false);                  // define o setStatic como false para o corpo
         Body.setVelocity(this.corpo, {
